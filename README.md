@@ -1,4 +1,4 @@
 # notepad
 Notepad app created using C Modulus
 
-[![notepad_ex.png](https://s29.postimg.org/mo3lvw04n/notepad_ex.png)](https://postimg.org/image/ce16wna8z/)
+[![notepad_ex.jpg](https://s3.postimg.org/obzgjmclf/notepad_ex.jpg)](https://postimg.org/image/cmvgvnlmn/)
