@@ -1,1 +1,2 @@
-notepad/* linguist-vendored
+* linguist-vendored
+*.cmod linguist-vendored=false
