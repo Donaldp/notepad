@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Properties>
+    <AppName>notepad</AppName>
+    <AppVersion>1.0.0.0</AppVersion>
+    <AppType>C Modulus Windows Application</AppType>
+    <ConfigBuild>Debug</ConfigBuild>
+    <ConfigCPU>x86</ConfigCPU>
+    <ConfigFramework>.NET Framework 4.6</ConfigFramework>
+    <ConfigEngine>Subatomic</ConfigEngine>
+    <EnvironmentName>Xylon Studio</EnvironmentName>
+    <EnvironmentVersion>0.2.14.7</EnvironmentVersion>
+    <String>windows.notepad.notepad</String>
+    <Output>\bin\x86\Debug</Output>
+    <echo println="Name: $_PROJECT_NAME
+Version: $_PROJECT_VER
+License: MIT
+Author: Donald Pakkies
+
+Minimum Requirements
+$_PROJECT_ENG
+$_PROJECT_FRAMEWORK
+
+This is a notepad example
+
+To clear this message, press Alt+C"/>
+</Properties>

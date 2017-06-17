@@ -1,0 +1,77 @@
+﻿// events.cmod
+
+var textView = document.getElementById("txt");
+string FilePath;
+bool edited;
+bool wrap;
+
+#region listeners
+
+textView.addEventListener("input", func () {
+    edited = true;
+}, false);
+
+textView.addEventListener("keydown", func (e) {
+    if e.ctrlKey && e.keyCode == 78 {
+        //New
+        e.preventDefault();
+        mnuFileNew_click();
+    }
+    else if e.ctrlKey && e.keyCode == 79 {
+        //Open
+        e.preventDefault();
+        mnuFileOpen_click();
+    }
+    else if e.ctrlKey && e.keyCode == 83 {
+        //Save
+        e.preventDefault();
+        mnuFileSave_click();
+    }
+    else if e.ctrlKey && e.keyCode == 80 {
+        //Print
+        e.preventDefault();
+        mnuFilePrint_click();
+    }
+    else if e.ctrlKey && e.keyCode == 90 {
+        //Undo
+        e.preventDefault();
+        mnuEditUndo_click();
+    }
+    else if e.ctrlKey && e.keyCode == 89 {
+        //Redo
+        e.preventDefault();
+        mnuEditRedo_click();
+    }
+    else if e.ctrlKey && e.keyCode == 88 {
+        //Cut
+        e.preventDefault();
+        mnuEditCut_click();
+    }
+    else if e.ctrlKey && e.keyCode == 67 {
+        //Copy
+        e.preventDefault();
+        mnuEditCopy_click();
+    }
+    else if e.ctrlKey && e.keyCode == 86 {
+        //Paste
+        e.preventDefault();
+        mnuEditPaste_click();
+    }
+    else if e.keyCode == 46 {
+        //Delete
+        e.preventDefault();
+        mnuEditDelete_click();
+    }
+    else if e.ctrlKey && e.keyCode == 65 {
+        //Select All
+        e.preventDefault();
+        mnuEditSelectAll_click();
+    }
+    else if e.keyCode == 116 {
+        //Time and Date
+        e.preventDefault();
+        mnuEditTimeDate_click();
+    }
+}, false);
+
+#endregion

@@ -1,0 +1,90 @@
+//  
+//  app.cmod
+//  notepad
+// 
+//  Created by Donald on 15/06/17.
+//  Copyright (c) 2017 Donald. All rights reserved.
+//  
+
+using library.seshaUI;
+seshaUI app = new seshaUI();
+bool events = app.require("events.cmod");
+bool menu   = app.require("menu.cmod");
+
+func main(args) {
+    app.title = "Untitled - Notepad";
+    app.icon  = "img.ico";
+    initialize();
+    set_menu();
+    app.run();
+}
+
+func application_onReady() {
+    app.onExit = "close();";
+}
+
+func close() {
+    mnuFileExit_click();
+}
+
+func set_title(text) {
+    app.title = string.Format("{0} - Notepad", text);
+}
+
+func initialize() {
+    app.height = 420;
+    app.width  = 800;
+}
+
+#region Menu 
+
+func set_menu() {
+    if menu {
+        Menu.setApplicationMenu = func () {`
+            <root>
+                <TopLevelMenu Name="mnuFile" Text="&amp;File">
+                    <MenuItem Name="mnuFileNew" Text="N&amp;ew..." ShortcutKeys="Ctrl+N" />
+                    <MenuItem Name="mnuFileOpen" Text="O&amp;pen..." ShortcutKeys="Ctrl-O" />
+                    <MenuItem Name="mnuFileSave" Text="S&amp;ave"  ShortcutKeys="Ctrl+S" />
+                    <MenuItem Name="mnuFileSaveAs" Text="S&amp;ave As..."  />
+                    <MenuItem Text="-" />
+                    <MenuItem Name="mnuFilePrint" Text="Print"  ShortcutKeys="Ctrl+P" />
+                    <MenuItem Text="-" />
+                    <MenuItem Name="mnuFileExit" Text="E&amp;xit" ShortcutKeys="Alt-F4" />
+                </TopLevelMenu>
+
+                <TopLevelMenu Name="mnuEdit" Text="&amp;Edit" >
+                    <MenuItem Name="mnuEditUndo" Text="U&amp;ndo" ShortcutKeys="Ctrl+Z" />
+                    <MenuItem Name="mnuEditRedo" Text="R&amp;edo" ShortcutKeys="Ctrl+Y" />
+                    <MenuItem Text="-" />
+                    <MenuItem Name="mnuEditCut" Text="C&amp;ut" ShortcutKeys="Ctrl+X" />
+                    <MenuItem Name="mnuEditCopy" Text="C&amp;opy" ShortcutKeys="Ctrl+C" />
+                    <MenuItem Name="mnuEditPaste" Text="P&amp;aste" ShortcutKeys="Ctrl+V" />
+                    <MenuItem Name="mnuEditDelete" Text="D&amp;elete" ShortcutKeys="Del" />
+                    <MenuItem Text="-" />
+                    <MenuItem Name="mnuEditFind" Text="Find" />
+                    <MenuItem Text="-" />
+                    <MenuItem Name="mnuEditSelectAll" Text="S&amp;elect All" ShortcutKeys="Ctrl+A" />
+                    <MenuItem Name="mnuEditTimeDate" Text="Time/Date" ShortcutKeys="F5" />
+                </TopLevelMenu>
+                
+                <TopLevelMenu Name="mnuFormat" Text="&amp;Format" >
+                    <MenuItem Name="mnuFormatWrap" Text="Word Wrap" />
+                </TopLevelMenu>
+                
+                <TopLevelMenu Name="mnuView" Text="&amp;View" >
+                    <MenuItem Name="mnuViewStatusBar" Text="Status Bar" />
+                </TopLevelMenu>
+                
+                <TopLevelMenu Name="mnuAbout" Text="&amp;Help" >
+                    <MenuItem Name="mnuAboutAbout" Text="A&amp;bout Notepad" />
+                </TopLevelMenu>
+            </root>
+        `}.Code();
+    }
+    else {
+        Menu.Visible = false;
+    }
+}
+
+#endregion

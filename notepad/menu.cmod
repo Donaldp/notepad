@@ -1,0 +1,189 @@
+﻿// menu.cmod
+
+Menu.BackgroundFromHTML = "#fff";
+
+#region File
+
+func mnuFileNew_click() {
+    if edited == true {
+        var results = MessageBox.Show(string.Format("Do you want to save changes to {0}?", app.title.ReplaceAll(" - Notepad").replace(",", "")), "Notepad", MessageButtons.YesNoCancel, MessageIcon.Question);
+        if results == MessageBoxResults.Yes {
+            mnuFileSave_click();
+            if edited == false  { 
+                textView.value = "";
+                FilePath       = "";
+                set_title("Untitled");
+            }
+        }
+        else if results == MessageBoxResults.No {
+            textView.value = "";
+            FilePath       = "";
+            set_title("Untitled");
+        }
+    }
+    else {
+        textView.value = "";
+        FilePath       = "";
+        set_title("Untitled");
+    }
+}
+
+func mnuFileOpen_click() {
+    if edited == true {
+        var results = MessageBox.Show(string.Format("Do you want to save changes to {0}?", app.title.ReplaceAll(" - Notepad").replace(",", "")), "Notepad", MessageButtons.YesNoCancel, MessageIcon.Question);
+        if results == MessageBoxResults.Yes {
+            mnuFileSave_click();
+            if edited == false  { 
+                Open(); 
+            }
+        }
+        else if results == MessageBoxResults.No {
+            Open();
+        }
+    }
+    else {
+        Open();
+    }
+}
+    
+func Open() {
+    OpenDialog openfile = new OpenDialog();
+    openfile.Filter     = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+    openfile.Title      = "Open";
+    var results         = openfile.Show();
+    if results == DialogResults.OK {
+        textView.value = File.Read(openfile.Path);
+        set_title(Path.GetName(openfile.Path));
+        FilePath = openfile.Path;
+        edited   = false;
+    }
+}
+
+func mnuFileSave_click() {
+    if FilePath == "" {
+        mnuFileSaveAs_click();
+    }
+    else {
+        File.Write(FilePath, textView.value);
+        edited = false;
+    }
+}
+
+func mnuFileSaveAs_click() {
+    SaveDialog savefile = new SaveDialog();
+    savefile.Filter     = "Text Documents (*.txt)|*.txt|All Files (*.*)|*.*";
+    savefile.Title      = "Save As";
+    var results         = savefile.Show();
+    if results == DialogResults.OK {
+        File.Write(savefile.Path, textView.value);
+        set_title(Path.GetName(savefile.Path));
+        FilePath = savefile.Path;
+        edited   = false;
+    }
+}
+
+func mnuFilePrint_click() {
+    print();
+}
+
+func mnuFileExit_click() {
+    if edited == true {
+        var results = MessageBox.Show(string.Format("Do you want to save changes to {0}?", app.title.ReplaceAll(" - Notepad").replace(",", "")), "Notepad", MessageButtons.YesNoCancel, MessageIcon.Question);
+        if results == MessageBoxResults.Yes {
+            mnuFileSave_click();
+            if edited == false  { 
+                app.destroy();
+            }
+        }
+        else if results == MessageBoxResults.No {
+            app.destroy();
+        }
+    }
+    else {
+        app.destroy();
+    }
+}
+
+#endregion
+
+#region Edit
+
+func mnuEditUndo_click() {
+    clipboard.undo();
+}
+
+func mnuEditRedo_click() {
+    clipboard.redo();
+}
+
+func mnuEditCut_click() {
+    clipboard.cut();
+}
+
+func mnuEditCopy_click() {
+    clipboard.copy();
+}
+
+func mnuEditPaste_click() {
+    clipboard.paste();
+}
+
+func mnuEditDelete_click() {
+    clipboard.delete();
+}
+
+func mnuEditSelectAll_click() {
+    clipboard.selectAll();
+}
+
+func mnuEditTimeDate_click() {
+    var time = datetime.hour + ':' + datetime.minute + ':' + datetime.second;
+    if textView.selectionStart || textView.selectionStart == "0" {
+        var startPos   = textView.selectionStart;
+        var endPos     = textView.selectionEnd;
+        textView.value = string.Format("{0}{1}{2}", textView.value.substring(0, startPos), time, textView.value.substring(endPos, textView.value.length));
+    }
+    else {
+        textView.value += time;
+    }
+}
+
+#endregion
+
+#region Format 
+
+func mnuFormatWrap_click() {
+    if wrap == false {
+        wrap = true;
+        textView.setAttribute("wrap", "hard");
+    }
+    else {
+        wrap = false;
+        textView.setAttribute("wrap", "off");
+    }
+}
+
+#endregion
+
+#region Find
+
+func mnuEditFind_click() {
+    inputDialog.show("Find", "", "Find Next");
+    inputDialog.catchresults();
+    
+    var word = inputDialog.inputdata;
+    
+    if word != "" {
+        //search for "word"
+    }
+}
+
+#endregion
+
+#region Help
+
+func mnuAboutAbout_click() {
+    MessageBox.Show("Notepad Application                                                            \nVersion 1.0.0.0\nLicense: MIT\n \nAuthor: Donald Pakkies", "About Notepad", MessageButtons.OK);
+}
+
+#endregion
